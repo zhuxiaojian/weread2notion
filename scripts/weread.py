@@ -387,21 +387,8 @@ def extract_page_id():
         raise Exception(f"获取NotionID失败，请检查输入的Url是否正确")
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(
-        allow_abbrev=False,
-        # 添加这些参数定义，避免在 CI/CD 环境中传入额外参数时报错
-    )
-    # 定义位置参数(支持但不使用,用于兼容 CI/CD 传入的参数)
-    parser.add_argument('secret1', nargs='?', default='', help='Secret 参数 1(未使用)')
-    parser.add_argument('secret2', nargs='?', default='', help='Secret 参数 2(未使用)')
-    parser.add_argument('secret3', nargs='?', default='', help='Secret 参数 3(未使用)')
-    parser.add_argument('git_ref', nargs='?', default='', help='Git ref(未使用)')
-    parser.add_argument('repository', nargs='?', default='', help='Repository(未使用)')
-    # 定义可选参数（支持但不使用，用于兼容 CI/CD 传入的参数）
-    parser.add_argument('--styles', nargs='*', help='样式参数（未使用）')
-    parser.add_argument('--colors', nargs='*', help='颜色参数（未使用）')
-    # 使用 parse_known_args 忽略其他未知参数（如 git 相关信息）
-    options, unknown = parser.parse_known_args()
+    parser = argparse.ArgumentParser()
+    options = parser.parse_args()
     weread_cookie = get_cookie()
     database_id = extract_page_id()
     notion_token = os.getenv("NOTION_TOKEN")
