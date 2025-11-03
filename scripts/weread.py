@@ -388,7 +388,8 @@ def extract_page_id():
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    options = parser.parse_args()
+    # 允许未知参数，避免在 CI/CD 环境中传入额外参数时报错
+    options, unknown = parser.parse_known_args()
     weread_cookie = get_cookie()
     database_id = extract_page_id()
     notion_token = os.getenv("NOTION_TOKEN")
